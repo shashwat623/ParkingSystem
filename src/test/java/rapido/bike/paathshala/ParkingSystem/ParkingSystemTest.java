@@ -64,6 +64,42 @@ public class ParkingSystemTest {
 
     }
 
+    @Test
+    public void checkIfParkingIsFull() {
+        int totalSlots = 6;
+        ParkingSystem parkingSystem = new ParkingSystem(totalSlots);
+        ParkingOwner parkingOwner=new ParkingOwner("Ojasvi");
+        SecurityPerson securityPerson=new SecurityPerson("Aman");
+
+        for(int i=0;i<6;i++){
+            Vehicle vehicle=new Vehicle("DL AB 723"+i);
+            String result = parkingSystem.carParking(vehicle);
+        }
+        String statusOfParkingSlotForParkingOwner=parkingOwner.checkForfullSlot(parkingSystem);
+        String statusOfParkingSlotForSecurityPerson=securityPerson.checkForfullSlot(parkingSystem);
+        assertEquals("Slot is Full",statusOfParkingSlotForParkingOwner);
+        assertEquals("Slot is Full",statusOfParkingSlotForSecurityPerson);
+
+    }
+
+    @Test
+    public void checkIfParkingIsNotFull() {
+        int totalSlots = 6;
+        ParkingSystem parkingSystem = new ParkingSystem(totalSlots);
+        ParkingOwner parkingOwner=new ParkingOwner("Ojasvi");
+        SecurityPerson securityPerson=new SecurityPerson("Aman");
+
+        for(int i=0;i<4;i++){
+            Vehicle vehicle=new Vehicle("DL AB 723"+i);
+            String result = parkingSystem.carParking(vehicle);
+        }
+        String statusOfParkingSlotForParkingOwner=parkingOwner.checkForfullSlot(parkingSystem);
+        String statusOfParkingSlotForSecurityPerson=securityPerson.checkForfullSlot(parkingSystem);
+        assertEquals("Slot is not Full",statusOfParkingSlotForParkingOwner);
+        assertEquals("Slot is not Full",statusOfParkingSlotForSecurityPerson);
+
+    }
+
     //    @Test
 
 

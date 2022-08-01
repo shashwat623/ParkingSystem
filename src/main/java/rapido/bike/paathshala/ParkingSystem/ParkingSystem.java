@@ -4,9 +4,9 @@ import java.util.HashSet;
 
 public class ParkingSystem {
 
-    int totalNumberOfSlots;
-    int noOfCarsAlreadyParked = 0;
-    HashSet<Vehicle> ParkedCarSet = new HashSet<Vehicle>();
+    private int totalNumberOfSlots;
+    private int noOfCarsAlreadyParked = 0;
+    private HashSet<Vehicle> ParkedCarSet = new HashSet<Vehicle>();
 
     public ParkingSystem(int totalNumberOfSlots) {
         this.totalNumberOfSlots = totalNumberOfSlots;
@@ -31,6 +31,14 @@ public class ParkingSystem {
         }
 
 
+    }
+    public String checkForfullSlot(){
+        if(totalNumberOfSlots==noOfCarsAlreadyParked){
+            return "Slot is Full";
+        }
+        else{
+            return "Slot is not Full";
+        }
     }
 
 
