@@ -8,7 +8,11 @@ public class SecurityPerson {
     }
 
 
-    public String checkForfullSlot(ParkingSystem parkingSystem) {
-        return parkingSystem.checkForfullSlot();
+    public String redirectSecurityStaff(ParkingSystem parkingSystem) {
+        if(parkingSystem.checkForfullSlot()){
+            return "redirect my security staff";
+        }
+            return "";
     }
+
 }

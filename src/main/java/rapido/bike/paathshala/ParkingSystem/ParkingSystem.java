@@ -32,12 +32,12 @@ public class ParkingSystem {
 
 
     }
-    public String checkForfullSlot(){
+    public boolean checkForfullSlot(){
         if(totalNumberOfSlots==noOfCarsAlreadyParked){
-            return "Slot is Full";
+            return true;
         }
         else{
-            return "Slot is not Full";
+            return false;
         }
     }
 

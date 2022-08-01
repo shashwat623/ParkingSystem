@@ -9,8 +9,11 @@ public class ParkingOwner {
         this.ownerName = ownerName;
     }
 
-    public String checkForfullSlot(ParkingSystem parkingSystem) {
-        return parkingSystem.checkForfullSlot();
+    public String putFullSign(ParkingSystem parkingSystem) {
+        if(parkingSystem.checkForfullSlot()){
+            return "put Full Sign";
+        }
+        return "";
     }
 
 }
