@@ -100,18 +100,5 @@ public class ParkingSystemTest {
 
     }
 
-    //    @Test
-
-
-    //    @Test
-//    public void shouldNotAllowParkingForCar6 () {
-//        int totalSlots = 6;
-//        int numberOfCarsAlreadyParked = 6;
-//        ParkingSystem parkingSystem = new ParkingSystem(totalSlots);
-//
-//        String result = parkingSystem.carParking(numberOfCarsAlreadyParked);
-//
-//        assertEquals("Cannot Park !", result);
-//    }
 }
 
