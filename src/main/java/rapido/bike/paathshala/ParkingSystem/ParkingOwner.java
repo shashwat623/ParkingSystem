@@ -1,19 +1,18 @@
 package rapido.bike.paathshala.ParkingSystem;
 
-public class ParkingOwner {
+public class ParkingOwner implements ParkingLotObserver {
     private final String ownerName;
-
+    boolean isNotify;
 
 
     public ParkingOwner(String ownerName) {
         this.ownerName = ownerName;
     }
 
-    public String putFullSign(ParkingSystem parkingSystem) {
-        if(parkingSystem.checkForfullSlot()){
-            return "put Full Sign";
-        }
-        return "";
-    }
 
+    @Override
+    public void notifyFullSlot() {
+        isNotify=true;
+
+    }
 }

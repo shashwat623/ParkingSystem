@@ -1,18 +1,15 @@
 package rapido.bike.paathshala.ParkingSystem;
 
-public class SecurityPerson {
+public class SecurityPerson implements ParkingLotObserver {
     private final String securityPersonName;
-
+    public boolean isNotify;
     public SecurityPerson(String securityPersonName) {
         this.securityPersonName = securityPersonName;
     }
 
 
-    public String redirectSecurityStaff(ParkingSystem parkingSystem) {
-        if(parkingSystem.checkForfullSlot()){
-            return "redirect my security staff";
-        }
-            return "";
+    @Override
+    public void notifyFullSlot() {
+         isNotify=true;
     }
-
 }

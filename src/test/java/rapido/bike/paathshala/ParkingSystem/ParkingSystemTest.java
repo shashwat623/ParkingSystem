@@ -65,69 +65,39 @@ public class ParkingSystemTest {
     }
 
     @Test
-    public void shouldPutSignWhenSlotIsFull() {
+    public void shouldNotifyParkingOwnerWhenSlotIsFull() {
         int totalSlots = 6;
         ParkingSystem parkingSystem = new ParkingSystem(totalSlots);
-        ParkingOwner parkingOwner = new ParkingOwner("Ojasvi");
+        ParkingOwner parkingOwner=new ParkingOwner("ojasvi");
+        SecurityPerson securityPerson=new SecurityPerson("aman");
+        parkingSystem.addLotObserver(parkingOwner);
+        parkingSystem.addLotObserver(securityPerson);
 
         for (int i = 0; i < 6; i++) {
             Vehicle vehicle = new Vehicle("DL AB 723" + i);
             String result = parkingSystem.carParking(vehicle);
         }
-        String result = parkingOwner.putFullSign(parkingSystem);
 
-
-        assertEquals("put Full Sign", result);
+        assertEquals(true,parkingOwner.isNotify);
 
     }
 
     @Test
-    public void shouldNotPutSignWhenSlotIsNotFull() {
+    public void shouldNotifySecurityPersonWhenSlotIsFull() {
         int totalSlots = 6;
         ParkingSystem parkingSystem = new ParkingSystem(totalSlots);
-        ParkingOwner parkingOwner = new ParkingOwner("Ojasvi");
-
-        for (int i = 0; i < 4; i++) {
-            Vehicle vehicle = new Vehicle("DL AB 723" + i);
-            String result = parkingSystem.carParking(vehicle);
-        }
-        String result = parkingOwner.putFullSign(parkingSystem);
-
-
-        assertEquals("", result);
-
-    }
-
-    @Test
-    public void shouldRedirectSecurityStaffWhenSlotIsFull() {
-        int totalSlots = 6;
-        ParkingSystem parkingSystem = new ParkingSystem(totalSlots);
-        SecurityPerson securityPerson = new SecurityPerson("ojasvi");
+        ParkingOwner parkingOwner=new ParkingOwner("ojasvi");
+        SecurityPerson securityPerson=new SecurityPerson("aman");
+        parkingSystem.addLotObserver(parkingOwner);
+        parkingSystem.addLotObserver(securityPerson);
 
         for (int i = 0; i < 6; i++) {
             Vehicle vehicle = new Vehicle("DL AB 723" + i);
             String result = parkingSystem.carParking(vehicle);
         }
-        String result = securityPerson.redirectSecurityStaff(parkingSystem);
 
-        assertEquals("redirect my security staff", result);
-    }
-
-    @Test
-    public void shouldNotRedirectSecurityStaffWhenSlotIsNotFull() {
-        int totalSlots = 6;
-        ParkingSystem parkingSystem = new ParkingSystem(totalSlots);
-        SecurityPerson securityPerson = new SecurityPerson("ojasvi");
-
-        for (int i = 0; i < 4; i++) {
-            Vehicle vehicle = new Vehicle("DL AB 723" + i);
-            String result = parkingSystem.carParking(vehicle);
-        }
-        String result= securityPerson.redirectSecurityStaff(parkingSystem);
-
-        assertEquals("",result);
+        assertEquals(true,securityPerson.isNotify);
 
     }
-
 }
 
