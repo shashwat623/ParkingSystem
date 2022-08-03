@@ -20,7 +20,7 @@ public class ParkingSystem {
             ParkedCarSet.add(vehicle);
             noOfCarsAlreadyParked += 1;
             if(isSlotFull()){
-                notifyAllObserver();
+                notifyAllObserverForFullParking();
             }
             return "Car Parked!";
         } else {
@@ -28,9 +28,15 @@ public class ParkingSystem {
         }
     }
 
-    private void notifyAllObserver() {
+    private void notifyAllObserverForFullParking() {
         for(ParkingLotObserver parkingLotObserver:lotObserverList){
-            parkingLotObserver.notifyFullSlot();
+            parkingLotObserver.notifyForFullLot();
+        }
+    }
+
+    private void notifyAllObserverForParkingAvailableAgain() {
+        for(ParkingLotObserver parkingLotObserver:lotObserverList){
+            parkingLotObserver.notifyForAvailableSlot();
         }
     }
 
@@ -41,6 +47,10 @@ public class ParkingSystem {
     public String carUnparking(Vehicle vehicle) {
         if (ParkedCarSet.contains(vehicle)) {
             ParkedCarSet.remove(vehicle);
+            noOfCarsAlreadyParked -= 1;
+            if (noOfCarsAlreadyParked == totalNumberOfSlots - 1){
+                notifyAllObserverForParkingAvailableAgain();
+            }
             return "Unparked";
         } else {
             return "Cannot unpark a vehicle which is not already parked";

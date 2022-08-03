@@ -2,7 +2,7 @@ package rapido.bike.paathshala.ParkingSystem;
 
 public class ParkingOwner implements ParkingLotObserver {
     private final String ownerName;
-    boolean isNotify;
+    boolean isLotFull;
 
 
     public ParkingOwner(String ownerName) {
@@ -11,8 +11,12 @@ public class ParkingOwner implements ParkingLotObserver {
 
 
     @Override
-    public void notifyFullSlot() {
-        isNotify=true;
+    public void notifyForFullLot() {
+        isLotFull =true;
 
+    }
+
+    public void notifyForAvailableSlot(){
+        isLotFull = false;
     }
 }

@@ -1,5 +1,7 @@
 package rapido.bike.paathshala.ParkingSystem;
 
 public interface ParkingLotObserver {
-    public void notifyFullSlot();
+    public void notifyForFullLot();
+
+    public void  notifyForAvailableSlot();
 }
