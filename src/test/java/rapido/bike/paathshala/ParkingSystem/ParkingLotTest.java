@@ -4,16 +4,16 @@ import org.testng.annotations.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class ParkingSystemTest {
+public class ParkingLotTest {
 
 
     @Test
     public void shouldAllowParkingWhenParkingNotFull() {
         int totalSlots = 1;
 
-        ParkingSystem parkingSystem = new ParkingSystem(totalSlots);
+        ParkingLot parkingLot = new ParkingLot(totalSlots);
         Vehicle vehicle = new Vehicle("DL AB 1237");
-        String parkStatus = parkingSystem.carParking(vehicle);
+        String parkStatus = parkingLot.carParking(vehicle);
 
         assertEquals("Car Parked!", parkStatus);
     }
@@ -22,11 +22,11 @@ public class ParkingSystemTest {
     public void shouldNotAllowParkingWhenSlotIsFull() {
         int totalSlots = 1;
 
-        ParkingSystem parkingSystem = new ParkingSystem(totalSlots);
+        ParkingLot parkingLot = new ParkingLot(totalSlots);
         Vehicle vehicle1 = new Vehicle("DL AB 1237");
-        parkingSystem.carParking(vehicle1);
+        parkingLot.carParking(vehicle1);
         Vehicle vehicle2 = new Vehicle("DL AB 1234");
-        String parkStatus = parkingSystem.carParking(vehicle2);
+        String parkStatus = parkingLot.carParking(vehicle2);
 
         assertEquals("Cannot Park !", parkStatus);
     }
@@ -35,10 +35,10 @@ public class ParkingSystemTest {
     public void shouldAllowUnparkIfCarIsParked() {
         int totalSlots = 6;
 
-        ParkingSystem parkingSystem = new ParkingSystem(totalSlots);
+        ParkingLot parkingLot = new ParkingLot(totalSlots);
         Vehicle vehicle = new Vehicle("UP 16 AB 6638");
-        parkingSystem.carParking(vehicle);
-        String unParkStatus = parkingSystem.carUnparking(vehicle);
+        parkingLot.carParking(vehicle);
+        String unParkStatus = parkingLot.carUnparking(vehicle);
 
         assertEquals("Unparked", unParkStatus);
     }
@@ -47,9 +47,9 @@ public class ParkingSystemTest {
     public void shouldNotAllowUnparkIfCarIsNotAlreadyParked() {
         int totalSlots = 6;
 
-        ParkingSystem parkingSystem = new ParkingSystem(totalSlots);
+        ParkingLot parkingLot = new ParkingLot(totalSlots);
         Vehicle vehicle = new Vehicle("UP 16 AB 6638");
-        String unParkStatus = parkingSystem.carUnparking(vehicle);
+        String unParkStatus = parkingLot.carUnparking(vehicle);
 
         assertEquals("Cannot unpark a vehicle which is not already parked", unParkStatus);
 
@@ -59,11 +59,11 @@ public class ParkingSystemTest {
     public void shouldNotifyParkingOwnerWhenSlotIsFull() {
         int totalSlots = 1;
 
-        ParkingSystem parkingSystem = new ParkingSystem(totalSlots);
+        ParkingLot parkingLot = new ParkingLot(totalSlots);
         ParkingOwner parkingOwner=new ParkingOwner("ojasvi");
-        parkingSystem.addLotObserver(parkingOwner);
+        parkingLot.addLotObserver(parkingOwner);
         Vehicle vehicle = new Vehicle("DL AB 723");
-        parkingSystem.carParking(vehicle);
+        parkingLot.carParking(vehicle);
 
         assertEquals(true,parkingOwner.isLotFull);
 
@@ -73,11 +73,11 @@ public class ParkingSystemTest {
     public void shouldNotifySecurityPersonWhenSlotIsFull() {
         int totalSlots = 1;
 
-        ParkingSystem parkingSystem = new ParkingSystem(totalSlots);
+        ParkingLot parkingLot = new ParkingLot(totalSlots);
         SecurityPerson securityPerson=new SecurityPerson("aman");
-        parkingSystem.addLotObserver(securityPerson);
+        parkingLot.addLotObserver(securityPerson);
         Vehicle vehicle = new Vehicle("DL AB 723");
-        parkingSystem.carParking(vehicle);
+        parkingLot.carParking(vehicle);
 
         assertEquals(true,securityPerson.isLotFull);
 
@@ -87,12 +87,12 @@ public class ParkingSystemTest {
     public void shouldNotifyOwnerWhenParkingAvailableAgain(){
         int totalSlots = 1;
 
-        ParkingSystem parkingSystem = new ParkingSystem(totalSlots);
+        ParkingLot parkingLot = new ParkingLot(totalSlots);
         ParkingOwner parkingOwner = new ParkingOwner("Shashwat");
-        parkingSystem.addLotObserver(parkingOwner);
+        parkingLot.addLotObserver(parkingOwner);
         Vehicle vehicle = new Vehicle("DL AB 123");
-        parkingSystem.carParking(vehicle);
-        parkingSystem.carUnparking(vehicle);
+        parkingLot.carParking(vehicle);
+        parkingLot.carUnparking(vehicle);
 
         assertEquals(false, parkingOwner.isLotFull);
     }
