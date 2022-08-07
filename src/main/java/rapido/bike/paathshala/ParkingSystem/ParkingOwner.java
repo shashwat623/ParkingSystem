@@ -4,7 +4,6 @@ public class ParkingOwner implements ParkingLotObserver {
     private final String ownerName;
     boolean isLotFull;
 
-
     public ParkingOwner(String ownerName) {
         this.ownerName = ownerName;
     }
@@ -16,6 +15,7 @@ public class ParkingOwner implements ParkingLotObserver {
 
     }
 
+    @Override
     public void notifyForAvailableSlot(){
         isLotFull = false;
     }
