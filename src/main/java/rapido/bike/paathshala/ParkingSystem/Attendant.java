@@ -3,6 +3,11 @@ package rapido.bike.paathshala.ParkingSystem;
 import java.util.ArrayList;
 
 public class Attendant {
+    public ArrayList<ParkingLot> getParkingLots() {
+        return parkingLots;
+    }
+
+    private ArrayList<ParkingLot> parkingLots = new ArrayList<ParkingLot>();
     int sizeOfParkingLots;
     int numberOfParkingLots;
     Attendant(int sizeOfParkingLots,int numberOfParkingLots)
@@ -14,48 +19,43 @@ public class Attendant {
             this.parkingLots.add(new ParkingLot(sizeOfParkingLots));
         }
     }
-    public ArrayList<ParkingLot> getParkingLots() {
-        return parkingLots;
-    }
-
-    private ArrayList<ParkingLot> parkingLots = new ArrayList<ParkingLot>();
-
-    String allocateLotToVehicle()
+    String VehicleLotAllocatingToLot()
     {
         for(int index=0;index<this.parkingLots.size();index++)
         {
             if(this.parkingLots.get(index).isSlotAvailable())
             {
-                return "Lot "+(index+1);
+                return "Slot "+(index+1);
             }
         }
-        return "Lot not available";
+        return "Slot not available";
     }
 
-    String deAllocateVehicleFromLot(String LicenseNumber)
+    String VehicleLotDeAllocatingFromLot(String LicenseNumber)
     {
         Vehicle vehicle = new Vehicle(LicenseNumber);
-        for(int index=0; index<parkingLots.size(); index++)
+        for(int index=0;index<parkingLots.size();index++)
         {
             if(parkingLots.get(index).getParkedCarSet().contains(vehicle))
             {
-                return "You can un-park from lot "+(index+1);
+                return "You can un park from slot "+(index+1);
             }
         }
-        return "Vehicle not Present in any lot";
+        return "Vehicle Not Present in any lot";
     }
 
-    int parkCarEvenly(){
+    int parkCarEvenly(ArrayList<ParkingLot> parkingLots){
+        this.parkingLots = parkingLots;
         int minNumberOfCars = Integer.MAX_VALUE;
-        int lotIndexWithMinCars = -1;
+        int lotOIndexWithMinCars = -1;
         for(int i = 0; i < parkingLots.size(); i++){
             int carsInLot = parkingLots.get(i).getNoOfCarsAlreadyParked();
             if(carsInLot < minNumberOfCars){
                 minNumberOfCars = carsInLot;
-                lotIndexWithMinCars = i;
+                lotOIndexWithMinCars = i;
             }
         }
-        return  lotIndexWithMinCars+1;
+        return  lotOIndexWithMinCars+1;
     }
 
 }

@@ -1,6 +1,5 @@
 package rapido.bike.paathshala.ParkingSystem;
 
-import org.mockito.Mockito;
 import org.testng.annotations.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -11,23 +10,23 @@ public class ParkingLotTest {
     @Test
     public void shouldAllowParkingWhenParkingNotFull() {
         int totalSlots = 1;
+
         ParkingLot parkingLot = new ParkingLot(totalSlots);
         Vehicle vehicle = new Vehicle("DL AB 1237");
-
-        String parkStatus = parkingLot.parkCar(vehicle);
+        String parkStatus = parkingLot.carParking(vehicle);
 
         assertEquals("Car Parked!", parkStatus);
     }
 
     @Test
-    public void shouldNotAllowParkingWhenLotIsFull() {
+    public void shouldNotAllowParkingWhenSlotIsFull() {
         int totalSlots = 1;
 
         ParkingLot parkingLot = new ParkingLot(totalSlots);
         Vehicle vehicle1 = new Vehicle("DL AB 1237");
-        parkingLot.parkCar(vehicle1);
+        parkingLot.carParking(vehicle1);
         Vehicle vehicle2 = new Vehicle("DL AB 1234");
-        String parkStatus = parkingLot.parkCar(vehicle2);
+        String parkStatus = parkingLot.carParking(vehicle2);
 
         assertEquals("Cannot Park !", parkStatus);
     }
@@ -35,10 +34,10 @@ public class ParkingLotTest {
     @Test
     public void shouldAllowUnparkIfCarIsParked() {
         int totalSlots = 6;
+
         ParkingLot parkingLot = new ParkingLot(totalSlots);
         Vehicle vehicle = new Vehicle("UP 16 AB 6638");
-        parkingLot.parkCar(vehicle);
-
+        parkingLot.carParking(vehicle);
         String unParkStatus = parkingLot.carUnparking(vehicle);
 
         assertEquals("Unparked", unParkStatus);
@@ -47,9 +46,9 @@ public class ParkingLotTest {
     @Test
     public void shouldNotAllowUnparkIfCarIsNotAlreadyParked() {
         int totalSlots = 6;
+
         ParkingLot parkingLot = new ParkingLot(totalSlots);
         Vehicle vehicle = new Vehicle("UP 16 AB 6638");
-
         String unParkStatus = parkingLot.carUnparking(vehicle);
 
         assertEquals("Cannot unpark a vehicle which is not already parked", unParkStatus);
@@ -59,44 +58,43 @@ public class ParkingLotTest {
     @Test
     public void shouldNotifyParkingOwnerWhenSlotIsFull() {
         int totalSlots = 1;
+
         ParkingLot parkingLot = new ParkingLot(totalSlots);
-        ParkingOwner parkingOwner = Mockito.spy(new ParkingOwner("ojasvi"));
+        ParkingOwner parkingOwner=new ParkingOwner("ojasvi");
         parkingLot.addLotObserver(parkingOwner);
         Vehicle vehicle = new Vehicle("DL AB 723");
+        parkingLot.carParking(vehicle);
 
-        parkingLot.parkCar(vehicle);
-
-        Mockito.verify(parkingOwner,Mockito.times(1)).notifyForFullLot();
-
+        assertEquals(true,parkingOwner.isLotFull);
 
     }
 
     @Test
     public void shouldNotifySecurityPersonWhenSlotIsFull() {
         int totalSlots = 1;
+
         ParkingLot parkingLot = new ParkingLot(totalSlots);
-        SecurityPerson securityPerson= Mockito.spy(new SecurityPerson("aman"));
+        SecurityPerson securityPerson=new SecurityPerson("aman");
         parkingLot.addLotObserver(securityPerson);
         Vehicle vehicle = new Vehicle("DL AB 723");
+        parkingLot.carParking(vehicle);
 
-        parkingLot.parkCar(vehicle);
+        assertEquals(true,securityPerson.isLotFull);
 
-        Mockito.verify(securityPerson,Mockito.times(1)).notifyForFullLot();
     }
 
     @Test
     public void shouldNotifyOwnerWhenParkingAvailableAgain(){
         int totalSlots = 1;
+
         ParkingLot parkingLot = new ParkingLot(totalSlots);
-        ParkingOwner parkingOwner = Mockito.spy(new ParkingOwner("Shashwat"));
+        ParkingOwner parkingOwner = new ParkingOwner("Shashwat");
         parkingLot.addLotObserver(parkingOwner);
         Vehicle vehicle = new Vehicle("DL AB 123");
-        parkingLot.parkCar(vehicle);
-
+        parkingLot.carParking(vehicle);
         parkingLot.carUnparking(vehicle);
 
-        Mockito.verify(parkingOwner, Mockito.times(1)).notifyForAvailableSlot();
-
+        assertEquals(false, parkingOwner.isLotFull);
     }
 }
 

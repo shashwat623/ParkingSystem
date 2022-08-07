@@ -7,25 +7,30 @@ import java.util.List;
 public class ParkingLot {
 
     private int totalNumberOfSlots;
-    private int noOfCarsAlreadyParked = 0;
-    private HashSet<Vehicle> parkedCarSet = new HashSet<Vehicle>();
-    private List<ParkingLotObserver> lotObserverList=new ArrayList<>();
-    public ParkingLot(int totalNumberOfSlots) {
-        this.totalNumberOfSlots = totalNumberOfSlots;
-    }
+
     public int getNoOfCarsAlreadyParked() {
         return noOfCarsAlreadyParked;
     }
+
+    private int noOfCarsAlreadyParked = 0;
+
+    private HashSet<Vehicle> ParkedCarSet = new HashSet<Vehicle>();
+    private List<ParkingLotObserver> lotObserverList=new ArrayList<>();
+
+    public HashSet<Vehicle> getParkedCarSet() {
+        return ParkedCarSet;
+    }
+    public ParkingLot(int totalNumberOfSlots) {
+        this.totalNumberOfSlots = totalNumberOfSlots;
+    }
+
     public int getTotalNumberOfSlots() {
         return totalNumberOfSlots;
     }
-    public HashSet<Vehicle> getParkedCarSet() {
-        return parkedCarSet;
-    }
 
-    public String parkCar(Vehicle vehicle) {
-        if (isSlotAvailable() && !parkedCarSet.contains(vehicle)) {
-            parkedCarSet.add(vehicle);
+    public String carParking(Vehicle vehicle) {
+        if (isSlotAvailable() && !ParkedCarSet.contains(vehicle)) {
+            ParkedCarSet.add(vehicle);
             noOfCarsAlreadyParked += 1;
             if(isSlotFull()){
                 notifyAllObserverForFullParking();
@@ -53,8 +58,8 @@ public class ParkingLot {
     }
 
     public String carUnparking(Vehicle vehicle) {
-        if (parkedCarSet.contains(vehicle)) {
-            parkedCarSet.remove(vehicle);
+        if (ParkedCarSet.contains(vehicle)) {
+            ParkedCarSet.remove(vehicle);
             noOfCarsAlreadyParked -= 1;
             if (noOfCarsAlreadyParked == totalNumberOfSlots - 1){
                 notifyAllObserverForParkingAvailableAgain();
@@ -74,6 +79,7 @@ public class ParkingLot {
             return false;
         }
     }
+
 
     public void addLotObserver(ParkingLotObserver parkingLotObserver) {
         lotObserverList.add(parkingLotObserver);
