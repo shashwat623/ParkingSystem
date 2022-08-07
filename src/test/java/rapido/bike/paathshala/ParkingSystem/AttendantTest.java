@@ -11,7 +11,7 @@ public class AttendantTest {
 
         for (int index = 0; index < parkingLot.getTotalNumberOfSlots(); index++) {
             Vehicle vehicle = new Vehicle("1237" + index);
-            parkingLot.carParking(vehicle);
+            parkingLot.parkCar(vehicle);
         }
 
     }
@@ -21,9 +21,9 @@ public class AttendantTest {
 
         Attendant attendant = new Attendant(5, 5);
 
-        String assignedLot = attendant.VehicleLotAllocatingToLot();
+        String assignedLot = attendant.allocateLotToVehicle();
 
-        assertEquals("Slot 1", assignedLot);
+        assertEquals("Lot 1", assignedLot);
     }
 
     @Test
@@ -33,9 +33,9 @@ public class AttendantTest {
         ArrayList<ParkingLot> parkingLots = attendant.getParkingLots();
         parkingLotFiller(parkingLots.get(0));
 
-        String assignedLot = attendant.VehicleLotAllocatingToLot();
+        String assignedLot = attendant.allocateLotToVehicle();
 
-        assertEquals("Slot 2", assignedLot);
+        assertEquals("Lot 2", assignedLot);
 
     }
 
@@ -48,9 +48,9 @@ public class AttendantTest {
         parkingLotFiller(parkingLots.get(1));
 
 
-        String unassignedLot = attendant.VehicleLotAllocatingToLot();
+        String unassignedLot = attendant.allocateLotToVehicle();
 
-        assertEquals("Slot not available", unassignedLot);
+        assertEquals("Lot not available", unassignedLot);
 
     }
 
@@ -58,28 +58,28 @@ public class AttendantTest {
     public void shouldAllowToUnParkIfVehicleIsPresentInAnyParkingLot() {
 
         Attendant attendant = new Attendant(2, 2);
-        String vehicle = "12370";
+        String alreadyParkedVehicleNumber = "12370";
         ArrayList<ParkingLot> parkingLots = attendant.getParkingLots();
         parkingLotFiller(parkingLots.get(0));
 
-        String slotToUnParkFrom = attendant.VehicleLotDeAllocatingFromLot(vehicle);
+        String slotToUnParkFrom = attendant.deAllocateVehicleFromLot(alreadyParkedVehicleNumber);
 
-        assertEquals("You can un park from slot 1", slotToUnParkFrom);
+        assertEquals("You can un-park from lot 1", slotToUnParkFrom);
 
 
     }
 
     @Test
-    public void shouldNotAllowToUnParkIfVehicleIsPresentInAnyParkingLot() {
+    public void shouldNotAllowToUnParkIfVehicleIsNotPresentInAnyParkingLot() {
 
         Attendant attendant = new Attendant(2, 2);
-        String vehicle = "12375";
+        String notAlreadyParkedVehicleNumber = "12375";
         ArrayList<ParkingLot> parkingLots = attendant.getParkingLots();
         parkingLotFiller(parkingLots.get(0));
 
-        String slotToUnParkFrom = attendant.VehicleLotDeAllocatingFromLot(vehicle);
+        String slotToUnParkFrom = attendant.deAllocateVehicleFromLot(notAlreadyParkedVehicleNumber);
 
-        assertEquals("Vehicle Not Present in any lot", slotToUnParkFrom);
+        assertEquals("Vehicle not Present in any lot", slotToUnParkFrom);
 
 
     }
@@ -90,10 +90,10 @@ public class AttendantTest {
         ArrayList<ParkingLot> parkingLots = attendant.getParkingLots();
         Vehicle vehicle1 = new Vehicle("1231");
         Vehicle vehicle2 = new Vehicle("1232");
-        parkingLots.get(0).carParking(vehicle1);
-        parkingLots.get(1).carParking(vehicle2);
+        parkingLots.get(0).parkCar(vehicle1);
+        parkingLots.get(1).parkCar(vehicle2);
 
-        int allotedLot = attendant.parkCarEvenly(parkingLots);
+        int allotedLot = attendant.parkCarEvenly();
 
         assertEquals(3, allotedLot);
     }
@@ -105,11 +105,28 @@ public class AttendantTest {
         ArrayList<ParkingLot> parkingLots = attendant.getParkingLots();
         Vehicle vehicle1 = new Vehicle("1231");
         Vehicle vehicle2 = new Vehicle("1232");
-        parkingLots.get(0).carParking(vehicle1);
-        parkingLots.get(2).carParking(vehicle2);
+        parkingLots.get(0).parkCar(vehicle1);
+        parkingLots.get(2).parkCar(vehicle2);
 
-        int allotedLot = attendant.parkCarEvenly(parkingLots);
+        int allotedLot = attendant.parkCarEvenly();
 
         assertEquals(2, allotedLot);
     }
+
+    @Test
+    public void shouldParkInThirdLotIfThreeCarsParkedInEachLotAndOneCarUnparkedFromThirdLot(){
+        Attendant attendant = new Attendant(3,3);
+        ArrayList<ParkingLot> parkingLots = attendant.getParkingLots();
+        for(int i = 0; i < parkingLots.size(); i++){
+            parkingLotFiller(parkingLots.get(i));
+        }
+        parkingLots.get(2).carUnparking(new Vehicle("12370"));
+
+        int allotedLot = attendant.parkCarEvenly();
+
+        assertEquals(3, allotedLot);
+
+    }
 }
+
+

@@ -11,7 +11,7 @@ public class SecurityPerson implements ParkingLotObserver {
 
     @Override
     public void notifyForFullLot() {
-         isLotFull =true;
+        isLotFull =true;
     }
 
     public void notifyForAvailableSlot(){
