@@ -128,7 +128,7 @@ public class AttendantTest {
     }
 
     @Test
-    public void shouldParkInLinearManner(){
+    public void shouldParkInLinearMannerFirstThreeCarsInFirstLotAndFourthInSecondLot(){
         Attendant attendant = new Attendant(3,3);
         ArrayList<ParkingLot> parkingLots = attendant.getParkingLots();
         for(int i = 0; i < 3; i++){
@@ -140,7 +140,19 @@ public class AttendantTest {
 
         assertEquals(parkingLots.get(0).getNoOfCarsAlreadyParked(), parkingLots.get(0).getTotalNumberOfSlots());
         assertEquals(2, allotedLot);
+    }
 
+    @Test
+    public void shouldParkInLinearMannerFirstThreeCarsInFirstLotAndNextThreeInSecondLot(){
+        Attendant attendant = new Attendant(3,3);
+        ArrayList<ParkingLot> parkingLots = attendant.getParkingLots();
+        for(int i = 0; i < 6; i++){
+            attendant.fillingUpLotsSeriallyUntilFull(new Vehicle("123" + i));
+        }
+
+        assertEquals(parkingLots.get(0).getNoOfCarsAlreadyParked(), parkingLots.get(0).getTotalNumberOfSlots());
+        assertEquals(parkingLots.get(1).getNoOfCarsAlreadyParked(), parkingLots.get(1).getTotalNumberOfSlots());
+        assertEquals(parkingLots.get(2).getNoOfCarsAlreadyParked(), 0);
     }
 }
 
