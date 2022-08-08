@@ -11,7 +11,8 @@ public class ParkingLotTest {
     @Test
     public void shouldAllowParkingWhenParkingNotFull() {
         int totalSlots = 1;
-        ParkingLot parkingLot = new ParkingLot(totalSlots);
+        int lotNumber = 1;
+        ParkingLot parkingLot = new ParkingLot(totalSlots, lotNumber);
         Vehicle vehicle = new Vehicle("DL AB 1237");
 
         String parkStatus = parkingLot.parkCar(vehicle);
@@ -22,8 +23,8 @@ public class ParkingLotTest {
     @Test
     public void shouldNotAllowParkingWhenLotIsFull() {
         int totalSlots = 1;
-
-        ParkingLot parkingLot = new ParkingLot(totalSlots);
+        int lotNumber = 1;
+        ParkingLot parkingLot = new ParkingLot(totalSlots, lotNumber);
         Vehicle vehicle1 = new Vehicle("DL AB 1237");
         parkingLot.parkCar(vehicle1);
         Vehicle vehicle2 = new Vehicle("DL AB 1234");
@@ -35,7 +36,8 @@ public class ParkingLotTest {
     @Test
     public void shouldAllowUnparkIfCarIsParked() {
         int totalSlots = 6;
-        ParkingLot parkingLot = new ParkingLot(totalSlots);
+        int lotNumber = 1;
+        ParkingLot parkingLot = new ParkingLot(totalSlots, lotNumber);
         Vehicle vehicle = new Vehicle("UP 16 AB 6638");
         parkingLot.parkCar(vehicle);
 
@@ -47,7 +49,7 @@ public class ParkingLotTest {
     @Test
     public void shouldNotAllowUnparkIfCarIsNotAlreadyParked() {
         int totalSlots = 6;
-        ParkingLot parkingLot = new ParkingLot(totalSlots);
+        ParkingLot parkingLot = new ParkingLot(totalSlots, 1);
         Vehicle vehicle = new Vehicle("UP 16 AB 6638");
 
         String unParkStatus = parkingLot.carUnparking(vehicle);
@@ -56,48 +58,6 @@ public class ParkingLotTest {
 
     }
 
-    @Test
-    public void shouldNotifyParkingOwnerWhenSlotIsFull() {
-        int totalSlots = 1;
-        ParkingLot parkingLot = new ParkingLot(totalSlots);
-        ParkingOwner parkingOwner = Mockito.spy(new ParkingOwner("ojasvi"));
-        parkingLot.addLotObserver(parkingOwner);
-        Vehicle vehicle = new Vehicle("DL AB 723");
-
-        parkingLot.parkCar(vehicle);
-
-        Mockito.verify(parkingOwner,Mockito.times(1)).notifyForFullLot();
-
-
-    }
-
-    @Test
-    public void shouldNotifySecurityPersonWhenSlotIsFull() {
-        int totalSlots = 1;
-        ParkingLot parkingLot = new ParkingLot(totalSlots);
-        SecurityPerson securityPerson= Mockito.spy(new SecurityPerson("aman"));
-        parkingLot.addLotObserver(securityPerson);
-        Vehicle vehicle = new Vehicle("DL AB 723");
-
-        parkingLot.parkCar(vehicle);
-
-        Mockito.verify(securityPerson,Mockito.times(1)).notifyForFullLot();
-    }
-
-    @Test
-    public void shouldNotifyOwnerWhenParkingAvailableAgain(){
-        int totalSlots = 1;
-        ParkingLot parkingLot = new ParkingLot(totalSlots);
-        ParkingOwner parkingOwner = Mockito.spy(new ParkingOwner("Shashwat"));
-        parkingLot.addLotObserver(parkingOwner);
-        Vehicle vehicle = new Vehicle("DL AB 123");
-        parkingLot.parkCar(vehicle);
-
-        parkingLot.carUnparking(vehicle);
-
-        Mockito.verify(parkingOwner, Mockito.times(1)).notifyForAvailableSlot();
-
-    }
 }
 
 

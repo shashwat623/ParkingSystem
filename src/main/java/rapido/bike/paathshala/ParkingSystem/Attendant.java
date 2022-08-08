@@ -5,58 +5,61 @@ import java.util.ArrayList;
 public class Attendant {
     int sizeOfParkingLots;
     int numberOfParkingLots;
-    Attendant(int sizeOfParkingLots,int numberOfParkingLots)
-    {
+
+    Attendant(int sizeOfParkingLots, int numberOfParkingLots) {
         this.sizeOfParkingLots = sizeOfParkingLots;
         this.numberOfParkingLots = numberOfParkingLots;
-        for(int index=0;index<numberOfParkingLots;index++)
-        {
-            this.parkingLots.add(new ParkingLot(sizeOfParkingLots));
+        for (int index = 0; index < numberOfParkingLots; index++) {
+            this.parkingLots.add(new ParkingLot(sizeOfParkingLots, index+1));
         }
     }
+
     public ArrayList<ParkingLot> getParkingLots() {
         return parkingLots;
     }
 
     private ArrayList<ParkingLot> parkingLots = new ArrayList<ParkingLot>();
 
-    String allocateLotToVehicle()
-    {
-        for(int index=0;index<this.parkingLots.size();index++)
-        {
-            if(this.parkingLots.get(index).isSlotAvailable())
-            {
-                return "Lot "+(index+1);
+    int allocateLotToVehicle() {
+        for(ParkingLot parkingLot: parkingLots){
+            if(parkingLot.isSlotAvailable()){
+                return parkingLot.lotnumber;
             }
         }
-        return "Lot not available";
+        return -1;
     }
 
-    String deAllocateVehicleFromLot(String LicenseNumber)
-    {
+    int deAllocateVehicleFromLot(String LicenseNumber) {
         Vehicle vehicle = new Vehicle(LicenseNumber);
-        for(int index=0; index<parkingLots.size(); index++)
-        {
-            if(parkingLots.get(index).getParkedCarSet().contains(vehicle))
-            {
-                return "You can un-park from lot "+(index+1);
+        for (ParkingLot parkingLot: parkingLots) {
+            if (parkingLot.getParkedCarSet().contains(vehicle)) {
+                return parkingLot.lotnumber;
             }
         }
-        return "Vehicle not Present in any lot";
+        return -1;
     }
 
-    int parkCarEvenly(){
+    int allotLotEvenly() {
         int minNumberOfCars = Integer.MAX_VALUE;
         int lotIndexWithMinCars = -1;
-        for(int i = 0; i < parkingLots.size(); i++){
+        for (int i = 0; i < parkingLots.size(); i++) {
             int carsInLot = parkingLots.get(i).getNoOfCarsAlreadyParked();
-            if(carsInLot < minNumberOfCars){
+            if (carsInLot < minNumberOfCars) {
                 minNumberOfCars = carsInLot;
                 lotIndexWithMinCars = i;
             }
         }
-        return  lotIndexWithMinCars+1;
+        return lotIndexWithMinCars + 1;
+    }
+
+    int fillingUpLotsSeriallyUntilFull(Vehicle vehicle){
+        for(ParkingLot parkingLot: parkingLots){
+            if(parkingLot.isSlotAvailable()){
+                parkingLot.parkCar(vehicle);
+                return parkingLot.lotnumber;
+            }
+        }
+        return -1;
     }
 
 }
-
