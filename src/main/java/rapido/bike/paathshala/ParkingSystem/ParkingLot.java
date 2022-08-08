@@ -7,11 +7,13 @@ import java.util.List;
 public class ParkingLot {
 
     private int totalNumberOfSlots;
+    public int lotnumber;
     private int noOfCarsAlreadyParked = 0;
     private HashSet<Vehicle> parkedCarSet = new HashSet<Vehicle>();
     private List<ParkingLotObserver> lotObserverList=new ArrayList<>();
-    public ParkingLot(int totalNumberOfSlots) {
+    public ParkingLot(int totalNumberOfSlots, int lotNumber) {
         this.totalNumberOfSlots = totalNumberOfSlots;
+        this.lotnumber = lotNumber;
     }
     public int getNoOfCarsAlreadyParked() {
         return noOfCarsAlreadyParked;
