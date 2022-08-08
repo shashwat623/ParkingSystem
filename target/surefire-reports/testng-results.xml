@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="17" passed="17" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2022-08-08T21:44:45 IST" name="Command line suite" finished-at="2022-08-08T21:44:45 IST" duration-ms="247">
+    <groups>
+    </groups>
+    <test started-at="2022-08-08T21:44:45 IST" name="Command line test" finished-at="2022-08-08T21:44:45 IST" duration-ms="247">
+      <class name="rapido.bike.paathshala.ParkingSystem.ParkingOwnerTest">
+        <test-method signature="shouldNotifyOwnerWhenParkingAvailableAgain()[pri:0, instance:rapido.bike.paathshala.ParkingSystem.ParkingOwnerTest@43a0cee9]" started-at="2022-08-08T21:44:45 IST" name="shouldNotifyOwnerWhenParkingAvailableAgain" finished-at="2022-08-08T21:44:45 IST" duration-ms="216" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- shouldNotifyOwnerWhenParkingAvailableAgain -->
+        <test-method signature="shouldNotifyParkingOwnerWhenSlotIsFull()[pri:0, instance:rapido.bike.paathshala.ParkingSystem.ParkingOwnerTest@43a0cee9]" started-at="2022-08-08T21:44:45 IST" name="shouldNotifyParkingOwnerWhenSlotIsFull" finished-at="2022-08-08T21:44:45 IST" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- shouldNotifyParkingOwnerWhenSlotIsFull -->
+      </class> <!-- rapido.bike.paathshala.ParkingSystem.ParkingOwnerTest -->
+      <class name="rapido.bike.paathshala.ParkingSystem.ParkingLotTest">
+        <test-method signature="shouldAllowParkingWhenParkingNotFull()[pri:0, instance:rapido.bike.paathshala.ParkingSystem.ParkingLotTest@1da51a35]" started-at="2022-08-08T21:44:45 IST" name="shouldAllowParkingWhenParkingNotFull" finished-at="2022-08-08T21:44:45 IST" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- shouldAllowParkingWhenParkingNotFull -->
+        <test-method signature="shouldNotAllowParkingWhenLotIsFull()[pri:0, instance:rapido.bike.paathshala.ParkingSystem.ParkingLotTest@1da51a35]" started-at="2022-08-08T21:44:45 IST" name="shouldNotAllowParkingWhenLotIsFull" finished-at="2022-08-08T21:44:45 IST" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- shouldNotAllowParkingWhenLotIsFull -->
+        <test-method signature="shouldAllowUnparkIfCarIsParked()[pri:0, instance:rapido.bike.paathshala.ParkingSystem.ParkingLotTest@1da51a35]" started-at="2022-08-08T21:44:45 IST" name="shouldAllowUnparkIfCarIsParked" finished-at="2022-08-08T21:44:45 IST" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- shouldAllowUnparkIfCarIsParked -->
+        <test-method signature="shouldNotAllowUnparkIfCarIsNotAlreadyParked()[pri:0, instance:rapido.bike.paathshala.ParkingSystem.ParkingLotTest@1da51a35]" started-at="2022-08-08T21:44:45 IST" name="shouldNotAllowUnparkIfCarIsNotAlreadyParked" finished-at="2022-08-08T21:44:45 IST" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- shouldNotAllowUnparkIfCarIsNotAlreadyParked -->
+      </class> <!-- rapido.bike.paathshala.ParkingSystem.ParkingLotTest -->
+      <class name="rapido.bike.paathshala.ParkingSystem.SecurityGuardTest">
+        <test-method signature="shouldNotifySecurityPersonWhenSlotIsFull()[pri:0, instance:rapido.bike.paathshala.ParkingSystem.SecurityGuardTest@5c072e3f]" started-at="2022-08-08T21:44:45 IST" name="shouldNotifySecurityPersonWhenSlotIsFull" finished-at="2022-08-08T21:44:45 IST" duration-ms="7" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- shouldNotifySecurityPersonWhenSlotIsFull -->
+      </class> <!-- rapido.bike.paathshala.ParkingSystem.SecurityGuardTest -->
+      <class name="rapido.bike.paathshala.ParkingSystem.AttendantTest">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:rapido.bike.paathshala.ParkingSystem.AttendantTest@710726a3]" started-at="2022-08-08T21:44:45 IST" name="setUp" finished-at="2022-08-08T21:44:45 IST" duration-ms="2" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="shouldAllowParkingInFirstLotIfAllLotsAreVacant()[pri:0, instance:rapido.bike.paathshala.ParkingSystem.AttendantTest@710726a3]" started-at="2022-08-08T21:44:45 IST" name="shouldAllowParkingInFirstLotIfAllLotsAreVacant" finished-at="2022-08-08T21:44:45 IST" duration-ms="1" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- shouldAllowParkingInFirstLotIfAllLotsAreVacant -->
+        <test-method signature="shouldAllowToUnParkIfVehicleIsPresentInAnyParkingLot()[pri:0, instance:rapido.bike.paathshala.ParkingSystem.AttendantTest@710726a3]" started-at="2022-08-08T21:44:45 IST" name="shouldAllowToUnParkIfVehicleIsPresentInAnyParkingLot" finished-at="2022-08-08T21:44:45 IST" duration-ms="1" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- shouldAllowToUnParkIfVehicleIsPresentInAnyParkingLot -->
+        <test-method signature="shouldAllowParkingInSecondSlotIfOnlyFirstIsFilled()[pri:0, instance:rapido.bike.paathshala.ParkingSystem.AttendantTest@710726a3]" started-at="2022-08-08T21:44:45 IST" name="shouldAllowParkingInSecondSlotIfOnlyFirstIsFilled" finished-at="2022-08-08T21:44:45 IST" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- shouldAllowParkingInSecondSlotIfOnlyFirstIsFilled -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:rapido.bike.paathshala.ParkingSystem.AttendantTest@710726a3]" started-at="2022-08-08T21:44:45 IST" name="setUp" finished-at="2022-08-08T21:44:45 IST" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:rapido.bike.paathshala.ParkingSystem.AttendantTest@710726a3]" started-at="2022-08-08T21:44:45 IST" name="setUp" finished-at="2022-08-08T21:44:45 IST" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="shouldNotAllowParkingIfAllSlotsAreFilled()[pri:0, instance:rapido.bike.paathshala.ParkingSystem.AttendantTest@710726a3]" started-at="2022-08-08T21:44:45 IST" name="shouldNotAllowParkingIfAllSlotsAreFilled" finished-at="2022-08-08T21:44:45 IST" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- shouldNotAllowParkingIfAllSlotsAreFilled -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:rapido.bike.paathshala.ParkingSystem.AttendantTest@710726a3]" started-at="2022-08-08T21:44:45 IST" name="setUp" finished-at="2022-08-08T21:44:45 IST" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="shouldParkCarInThirdLotIfOneCarEachIsParkedInFirstTwoLots()[pri:0, instance:rapido.bike.paathshala.ParkingSystem.AttendantTest@710726a3]" started-at="2022-08-08T21:44:45 IST" name="shouldParkCarInThirdLotIfOneCarEachIsParkedInFirstTwoLots" finished-at="2022-08-08T21:44:45 IST" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- shouldParkCarInThirdLotIfOneCarEachIsParkedInFirstTwoLots -->
+        <test-method signature="shouldNotAllowToUnParkIfVehicleIsNotPresentInAnyParkingLot()[pri:0, instance:rapido.bike.paathshala.ParkingSystem.AttendantTest@710726a3]" started-at="2022-08-08T21:44:45 IST" name="shouldNotAllowToUnParkIfVehicleIsNotPresentInAnyParkingLot" finished-at="2022-08-08T21:44:45 IST" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- shouldNotAllowToUnParkIfVehicleIsNotPresentInAnyParkingLot -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:rapido.bike.paathshala.ParkingSystem.AttendantTest@710726a3]" started-at="2022-08-08T21:44:45 IST" name="setUp" finished-at="2022-08-08T21:44:45 IST" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:rapido.bike.paathshala.ParkingSystem.AttendantTest@710726a3]" started-at="2022-08-08T21:44:45 IST" name="setUp" finished-at="2022-08-08T21:44:45 IST" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="shouldParkInThirdLotIfThreeCarsParkedInEachLotAndOneCarUnparkedFromThirdLot()[pri:0, instance:rapido.bike.paathshala.ParkingSystem.AttendantTest@710726a3]" started-at="2022-08-08T21:44:45 IST" name="shouldParkInThirdLotIfThreeCarsParkedInEachLotAndOneCarUnparkedFromThirdLot" finished-at="2022-08-08T21:44:45 IST" duration-ms="1" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- shouldParkInThirdLotIfThreeCarsParkedInEachLotAndOneCarUnparkedFromThirdLot -->
+        <test-method signature="shouldParkInSecondLotWhenFirstAndThirdLotHaveOneCarEach()[pri:0, instance:rapido.bike.paathshala.ParkingSystem.AttendantTest@710726a3]" started-at="2022-08-08T21:44:45 IST" name="shouldParkInSecondLotWhenFirstAndThirdLotHaveOneCarEach" finished-at="2022-08-08T21:44:45 IST" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- shouldParkInSecondLotWhenFirstAndThirdLotHaveOneCarEach -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:rapido.bike.paathshala.ParkingSystem.AttendantTest@710726a3]" started-at="2022-08-08T21:44:45 IST" name="setUp" finished-at="2022-08-08T21:44:45 IST" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:rapido.bike.paathshala.ParkingSystem.AttendantTest@710726a3]" started-at="2022-08-08T21:44:45 IST" name="setUp" finished-at="2022-08-08T21:44:45 IST" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="shouldProvideNextSlotNumberWhenFirstSlotIsFilled()[pri:0, instance:rapido.bike.paathshala.ParkingSystem.AttendantTest@710726a3]" started-at="2022-08-08T21:44:45 IST" name="shouldProvideNextSlotNumberWhenFirstSlotIsFilled" finished-at="2022-08-08T21:44:45 IST" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- shouldProvideNextSlotNumberWhenFirstSlotIsFilled -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:rapido.bike.paathshala.ParkingSystem.AttendantTest@710726a3]" started-at="2022-08-08T21:44:45 IST" name="setUp" finished-at="2022-08-08T21:44:45 IST" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="shouldProvideSameSlotNumberWhenFillLotUntilFullUsed()[pri:0, instance:rapido.bike.paathshala.ParkingSystem.AttendantTest@710726a3]" started-at="2022-08-08T21:44:45 IST" name="shouldProvideSameSlotNumberWhenFillLotUntilFullUsed" finished-at="2022-08-08T21:44:45 IST" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- shouldProvideSameSlotNumberWhenFillLotUntilFullUsed -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:rapido.bike.paathshala.ParkingSystem.AttendantTest@710726a3]" started-at="2022-08-08T21:44:45 IST" name="setUp" finished-at="2022-08-08T21:44:45 IST" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+      </class> <!-- rapido.bike.paathshala.ParkingSystem.AttendantTest -->
+    </test> <!-- Command line test -->
+  </suite> <!-- Command line suite -->
+</testng-results>

@@ -13,7 +13,7 @@ public class Attendant {
         this.numberOfParkingLots = numberOfParkingLots;
         for(int index=0;index<numberOfParkingLots;index++)
         {
-            this.parkingLots.add(new ParkingLot(sizeOfParkingLots));
+            this.parkingLots.add(new ParkingLot(5,5));
         }
     }
 
