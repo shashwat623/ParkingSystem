@@ -6,26 +6,43 @@ public class Attendant {
     int sizeOfParkingLots;
     int numberOfParkingLots;
 
+    Strategy strategy;
+
+    public final static Strategy DEFAULT_STRATEGY = EvenDistributionStrategy.getInstance();
+
+    public final static Strategy FILL_ONE_LOT_STRATEGY = FillOneLotStrategy.getInstance();
+    public final static Strategy EVEN_DISTRIBUTION_STRATEGY = EvenDistributionStrategy.getInstance();
+
+
+
     private ArrayList<ParkingLot> parkingLots = new ArrayList<ParkingLot>();
-    Attendant(int sizeOfParkingLots,int numberOfParkingLots)
-    {
+
+    public Attendant(int sizeOfParkingLots, int numberOfParkingLots) {
         this.sizeOfParkingLots = sizeOfParkingLots;
         this.numberOfParkingLots = numberOfParkingLots;
+        this.strategy =DEFAULT_STRATEGY;
         for(int index=0;index<numberOfParkingLots;index++)
         {
             this.parkingLots.add(new ParkingLot(5,5));
         }
     }
 
-    public void setParkingLots(ArrayList<ParkingLot> parkingLots) {
-        this.parkingLots = parkingLots;
+    public Attendant(int sizeOfParkingLots, int numberOfParkingLots, Strategy strategy)
+    {
+        this.sizeOfParkingLots = sizeOfParkingLots;
+        this.numberOfParkingLots = numberOfParkingLots;
+        this.strategy = strategy;
+        for(int index=0;index<numberOfParkingLots;index++)
+        {
+            this.parkingLots.add(new ParkingLot(5,5));
+        }
     }
 
-    public ArrayList<ParkingLot> getParkingLots() {
+    public ArrayList<ParkingLot> getAllParkingLots() {
         return parkingLots;
     }
 
-    String allocateLotToVehicle()
+    public String allocateLotToVehicle()
     {
         for(int index=0;index<this.parkingLots.size();index++)
         {
@@ -37,7 +54,7 @@ public class Attendant {
         return "Lot not available";
     }
 
-    String deAllocateVehicleFromLot(String LicenseNumber)
+    public String deAllocateVehicleFromLot(String LicenseNumber)
     {
         Vehicle vehicle = new Vehicle(LicenseNumber);
         for(int index=0; index<parkingLots.size(); index++)
@@ -50,25 +67,12 @@ public class Attendant {
         return "Vehicle not Present in any lot";
     }
 
-    int parkCarEvenly(){
-        int minNumberOfCars = Integer.MAX_VALUE;
-        int lotIndexWithMinCars = -1;
-        for(int i = 0; i < parkingLots.size(); i++){
-            int carsInLot = parkingLots.get(i).getNoOfCarsAlreadyParked();
-            if(carsInLot < minNumberOfCars){
-                minNumberOfCars = carsInLot;
-                lotIndexWithMinCars = i;
-            }
-        }
-        return  lotIndexWithMinCars+1;
+
+    public int getParkingLot(){
+        return strategy.getParkingLots(parkingLots);
     }
 
-    public int getParkingLotsLinearly() {
-        for(int index =0;index<parkingLots.size();index++){
-            if(parkingLots.get(index).isSlotAvailable()){
-                return index;
-            }
-        }
-        return -1;
+    public void setStrategy(Strategy strategy){
+        this.strategy = strategy;
     }
 }

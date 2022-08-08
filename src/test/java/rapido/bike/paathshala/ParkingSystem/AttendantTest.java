@@ -46,7 +46,7 @@ public class AttendantTest {
     @Test
     public void shouldAllowParkingInSecondSlotIfOnlyFirstIsFilled() {
 
-        ArrayList<ParkingLot> parkingLots = attendant.getParkingLots();
+        ArrayList<ParkingLot> parkingLots = attendant.getAllParkingLots();
         parkingLotFiller(parkingLots.get(0));
 
         String assignedLot = attendant.allocateLotToVehicle();
@@ -58,7 +58,7 @@ public class AttendantTest {
     @Test
     public void shouldNotAllowParkingIfAllSlotsAreFilled() {
 
-        ArrayList<ParkingLot> parkingLots = attendant.getParkingLots();
+        ArrayList<ParkingLot> parkingLots = attendant.getAllParkingLots();
         parkingLotsFiller(parkingLots);
 
         String unassignedLot = attendant.allocateLotToVehicle();
@@ -71,7 +71,7 @@ public class AttendantTest {
     public void shouldAllowToUnParkIfVehicleIsPresentInAnyParkingLot() {
 
         String alreadyParkedVehicleNumber = "12370";
-        ArrayList<ParkingLot> parkingLots = attendant.getParkingLots();
+        ArrayList<ParkingLot> parkingLots = attendant.getAllParkingLots();
         parkingLotFiller(parkingLots.get(0));
 
         String slotToUnParkFrom = attendant.deAllocateVehicleFromLot(alreadyParkedVehicleNumber);
@@ -85,7 +85,7 @@ public class AttendantTest {
     public void shouldNotAllowToUnParkIfVehicleIsNotPresentInAnyParkingLot() {
 
         String notAlreadyParkedVehicleNumber = "12375";
-        ArrayList<ParkingLot> parkingLots = attendant.getParkingLots();
+        ArrayList<ParkingLot> parkingLots = attendant.getAllParkingLots();
         parkingLotFiller(parkingLots.get(0));
 
         String slotToUnParkFrom = attendant.deAllocateVehicleFromLot(notAlreadyParkedVehicleNumber);
@@ -96,73 +96,79 @@ public class AttendantTest {
     }
 
     @Test
-    public void shouldParkCarInThirdLotIfOneCarEachIsParkedInFirstTwoLots() {
+    public void shouldParkCarInThirdLotIfOneCarEachIsParkedInFirstTwoLotsEvenlyParkingStrategyUsed() {
 
-        ArrayList<ParkingLot> parkingLots = attendant.getParkingLots();
+        ArrayList<ParkingLot> parkingLots = attendant.getAllParkingLots();
         Vehicle vehicle1 = new Vehicle("1231");
         Vehicle vehicle2 = new Vehicle("1232");
         parkingLots.get(0).parkCar(vehicle1);
         parkingLots.get(1).parkCar(vehicle2);
+        attendant.setStrategy(Attendant.EVEN_DISTRIBUTION_STRATEGY);
 
-        int allottedLot = attendant.parkCarEvenly();
+        int allottedLot = attendant.getParkingLot();
 
         assertEquals(3, allottedLot);
     }
 
 
     @Test
-    public void shouldParkInSecondLotWhenFirstAndThirdLotHaveOneCarEach() {
+    public void shouldParkInSecondLotWhenFirstAndThirdLotHaveOneCarEachEvenlyParkingStrategyUsed() {
 
-        ArrayList<ParkingLot> parkingLots = attendant.getParkingLots();
+        ArrayList<ParkingLot> parkingLots = attendant.getAllParkingLots();
         Vehicle vehicle1 = new Vehicle("1231");
         Vehicle vehicle2 = new Vehicle("1232");
         parkingLots.get(0).parkCar(vehicle1);
         parkingLots.get(2).parkCar(vehicle2);
+        attendant.setStrategy(Attendant.EVEN_DISTRIBUTION_STRATEGY);
 
-        int allottedLot = attendant.parkCarEvenly();
+        int allottedLot = attendant.getParkingLot();
 
         assertEquals(2, allottedLot);
     }
 
     @Test
-    public void shouldParkInThirdLotIfThreeCarsParkedInEachLotAndOneCarUnParkedFromThirdLot(){
+    public void shouldParkInThirdLotIfThreeCarsParkedInEachLotAndOneCarUnParkedFromThirdLotWhenEvenlyParkingStrategyUsed(){
 
-        ArrayList<ParkingLot> parkingLots = attendant.getParkingLots();
+        ArrayList<ParkingLot> parkingLots = attendant.getAllParkingLots();
         for (ParkingLot parkingLot : parkingLots) {
             parkingLotFiller(parkingLot);
         }
         parkingLots.get(2).carUnparking(new Vehicle("12370"));
+        attendant.setStrategy(Attendant.EVEN_DISTRIBUTION_STRATEGY);
 
-        int allottedLot = attendant.parkCarEvenly();
+        int allottedLot = attendant.getParkingLot();
 
         assertEquals(3, allottedLot);
 
     }
 
     @Test
-    public void shouldProvideSameSlotNumberWhenFillLotUntilFullUsed() {
-        ArrayList<ParkingLot> parkingLots = attendant.getParkingLots();
-        int firstLotProvided = attendant.getParkingLotsLinearly();
+    public void shouldProvideSameSlotNumberWhenFillLotUntilFullStrategyUsed() {
+        ArrayList<ParkingLot> parkingLots = attendant.getAllParkingLots();
+        int firstLotProvided = attendant.getParkingLot();
         parkingLots.get(firstLotProvided).parkCar(new Vehicle("1111"));
+        attendant.setStrategy(Attendant.FILL_ONE_LOT_STRATEGY);
 
-        int secondLotProvided = attendant.getParkingLotsLinearly();
+
+        int secondLotProvided = attendant.getParkingLot();
 
         assertEquals(0, secondLotProvided);
     }
 
     @Test
-    public void shouldProvideNextSlotNumberWhenFirstSlotIsFilled() {
-
-        ArrayList<ParkingLot> parkingLots = attendant.getParkingLots();
+    public void shouldProvideNextSlotNumberWhenFirstSlotIsFilledCompletelyInFillLotUntilFullStrategy(){
+        ArrayList<ParkingLot> parkingLots = attendant.getAllParkingLots();
+        attendant.setStrategy(Attendant.FILL_ONE_LOT_STRATEGY);
         for(int index = 0; index < parkingLots.get(0).getTotalNumberOfSlots(); index++){
-            int lotToPark = attendant.getParkingLotsLinearly();
+            int lotToPark = attendant.getParkingLot();
             parkingLots.get(lotToPark).parkCar(new Vehicle("1234" + index));
 
         }
 
-        int providedLot = attendant.getParkingLotsLinearly();
+        int providedLot = attendant.getParkingLot();
         parkingLots.get(providedLot).parkCar(new Vehicle("vehicle check"));
 
+        System.out.println(providedLot);
         assertFalse(parkingLots.get(0).isSlotAvailable());
         assertEquals(1, providedLot);
 
