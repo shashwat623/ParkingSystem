@@ -1,12 +1,17 @@
 package rapido.bike.paathshala.ParkingSystem;
 
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class AttendantTest {
+
+    Attendant attendant;
+
     void parkingLotFiller(ParkingLot parkingLot) {
 
         for (int index = 0; index < parkingLot.getTotalNumberOfSlots(); index++) {
@@ -16,10 +21,22 @@ public class AttendantTest {
 
     }
 
+    void parkingLotsFiller(List<ParkingLot> parkingLots) {
+
+        for (ParkingLot parkingLot : parkingLots) {
+            parkingLotFiller(parkingLot);
+        }
+    }
+
+    @BeforeMethod
+    public void setUp() {
+         attendant = new Attendant(5, 5);
+
+    }
+
     @Test
     public void shouldAllowParkingInFirstLotIfAllLotsAreVacant() {
 
-        Attendant attendant = new Attendant(5, 5);
 
         String assignedLot = attendant.allocateLotToVehicle();
 
@@ -29,7 +46,6 @@ public class AttendantTest {
     @Test
     public void shouldAllowParkingInSecondSlotIfOnlyFirstIsFilled() {
 
-        Attendant attendant = new Attendant(5, 5);
         ArrayList<ParkingLot> parkingLots = attendant.getParkingLots();
         parkingLotFiller(parkingLots.get(0));
 
@@ -42,11 +58,8 @@ public class AttendantTest {
     @Test
     public void shouldNotAllowParkingIfAllSlotsAreFilled() {
 
-        Attendant attendant = new Attendant(2, 2);
         ArrayList<ParkingLot> parkingLots = attendant.getParkingLots();
-        parkingLotFiller(parkingLots.get(0));
-        parkingLotFiller(parkingLots.get(1));
-
+        parkingLotsFiller(parkingLots);
 
         String unassignedLot = attendant.allocateLotToVehicle();
 
@@ -57,7 +70,6 @@ public class AttendantTest {
     @Test
     public void shouldAllowToUnParkIfVehicleIsPresentInAnyParkingLot() {
 
-        Attendant attendant = new Attendant(2, 2);
         String alreadyParkedVehicleNumber = "12370";
         ArrayList<ParkingLot> parkingLots = attendant.getParkingLots();
         parkingLotFiller(parkingLots.get(0));
@@ -72,7 +84,6 @@ public class AttendantTest {
     @Test
     public void shouldNotAllowToUnParkIfVehicleIsNotPresentInAnyParkingLot() {
 
-        Attendant attendant = new Attendant(2, 2);
         String notAlreadyParkedVehicleNumber = "12375";
         ArrayList<ParkingLot> parkingLots = attendant.getParkingLots();
         parkingLotFiller(parkingLots.get(0));
@@ -86,7 +97,7 @@ public class AttendantTest {
 
     @Test
     public void shouldParkCarInThirdLotIfOneCarEachIsParkedInFirstTwoLots() {
-        Attendant attendant = new Attendant(3, 3);
+
         ArrayList<ParkingLot> parkingLots = attendant.getParkingLots();
         Vehicle vehicle1 = new Vehicle("1231");
         Vehicle vehicle2 = new Vehicle("1232");
@@ -101,7 +112,7 @@ public class AttendantTest {
 
     @Test
     public void shouldParkInSecondLotWhenFirstAndThirdLotHaveOneCarEach() {
-        Attendant attendant = new Attendant(3, 3);
+
         ArrayList<ParkingLot> parkingLots = attendant.getParkingLots();
         Vehicle vehicle1 = new Vehicle("1231");
         Vehicle vehicle2 = new Vehicle("1232");
@@ -115,7 +126,7 @@ public class AttendantTest {
 
     @Test
     public void shouldParkInThirdLotIfThreeCarsParkedInEachLotAndOneCarUnparkedFromThirdLot(){
-        Attendant attendant = new Attendant(3,3);
+
         ArrayList<ParkingLot> parkingLots = attendant.getParkingLots();
         for(int i = 0; i < parkingLots.size(); i++){
             parkingLotFiller(parkingLots.get(i));
@@ -125,6 +136,35 @@ public class AttendantTest {
         int allotedLot = attendant.parkCarEvenly();
 
         assertEquals(3, allotedLot);
+
+    }
+
+    @Test
+    public void shouldProvideSameSlotNumberWhenFillLotUntilFullUsed() {
+        ArrayList<ParkingLot> parkingLots = attendant.getParkingLots();
+        int firstLotProvided = attendant.getParkingLotsLinearly();
+        parkingLots.get(firstLotProvided).parkCar(new Vehicle("1111"));
+
+        int secondLotProvided = attendant.getParkingLotsLinearly();
+
+        assertEquals(0, secondLotProvided);
+    }
+
+    @Test
+    public void shouldProvideNextSlotNumberWhenFirstSlotIsFilled() {
+
+        ArrayList<ParkingLot> parkingLots = attendant.getParkingLots();
+        for(int index = 0; index < parkingLots.get(0).getTotalNumberOfSlots(); index++){
+            int lotToPark = attendant.getParkingLotsLinearly();
+            parkingLots.get(lotToPark).parkCar(new Vehicle("1234" + index));
+
+        }
+
+        int providedLot = attendant.getParkingLotsLinearly();
+        parkingLots.get(providedLot).parkCar(new Vehicle("vehicle check"));
+
+        assertFalse(parkingLots.get(0).isSlotAvailable());
+        assertEquals(1, providedLot);
 
     }
 }
