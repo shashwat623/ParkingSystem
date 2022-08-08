@@ -104,9 +104,9 @@ public class AttendantTest {
         parkingLots.get(0).parkCar(vehicle1);
         parkingLots.get(1).parkCar(vehicle2);
 
-        int allotedLot = attendant.parkCarEvenly();
+        int allottedLot = attendant.parkCarEvenly();
 
-        assertEquals(3, allotedLot);
+        assertEquals(3, allottedLot);
     }
 
 
@@ -119,23 +119,23 @@ public class AttendantTest {
         parkingLots.get(0).parkCar(vehicle1);
         parkingLots.get(2).parkCar(vehicle2);
 
-        int allotedLot = attendant.parkCarEvenly();
+        int allottedLot = attendant.parkCarEvenly();
 
-        assertEquals(2, allotedLot);
+        assertEquals(2, allottedLot);
     }
 
     @Test
-    public void shouldParkInThirdLotIfThreeCarsParkedInEachLotAndOneCarUnparkedFromThirdLot(){
+    public void shouldParkInThirdLotIfThreeCarsParkedInEachLotAndOneCarUnParkedFromThirdLot(){
 
         ArrayList<ParkingLot> parkingLots = attendant.getParkingLots();
-        for(int i = 0; i < parkingLots.size(); i++){
-            parkingLotFiller(parkingLots.get(i));
+        for (ParkingLot parkingLot : parkingLots) {
+            parkingLotFiller(parkingLot);
         }
         parkingLots.get(2).carUnparking(new Vehicle("12370"));
 
-        int allotedLot = attendant.parkCarEvenly();
+        int allottedLot = attendant.parkCarEvenly();
 
-        assertEquals(3, allotedLot);
+        assertEquals(3, allottedLot);
 
     }
 
